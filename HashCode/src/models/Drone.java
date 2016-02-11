@@ -20,8 +20,8 @@ public class Drone implements  Comparable<Drone> {
 		this.accumulatedTurns = 0;
 	}
 
-	public void addTurn() {
-		accumulatedTurns ++;
+	public void addTurn(int turns) {
+		accumulatedTurns += turns;
 	}
 	
 	public ArrayList<Product> getProducts() {
