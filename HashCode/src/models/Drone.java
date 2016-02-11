@@ -1,15 +1,15 @@
 package models;
 
-import java.lang.Character.Subset;
 import java.util.ArrayList;
 
-public class Drone {
+public class Drone implements  Comparable<Drone> {
 	
 	private Coordinates position;
 	private ArrayList<Product> products;
 	private int maxWeight;
 	private int acumulatedWeight;
 	private int id;
+	private int accumulatedTurns;
 	
 	public Drone(int id, Coordinates position, ArrayList<Product> products, int maxWeight) {
 		this.id = id;
@@ -17,8 +17,13 @@ public class Drone {
 		this.products = products;
 		this.maxWeight = maxWeight;
 		this.acumulatedWeight = 0;
+		this.accumulatedTurns = 0;
 	}
 
+	public void addTurn() {
+		accumulatedTurns ++;
+	}
+	
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
@@ -116,6 +121,29 @@ public class Drone {
 	private void subWeight(int weight) {
 		this.acumulatedWeight -= weight;
 		if (acumulatedWeight < 0) { acumulatedWeight = 0; }
+	}
+	
+	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getAccumulatedTurns() {
+		return accumulatedTurns;
+	}
+
+	public void setAccumulatedTurns(int accumulatedTurns) {
+		this.accumulatedTurns = accumulatedTurns;
+	}
+
+	@Override
+	public int compareTo(Drone dr) {
+		return getAccumulatedTurns() - dr.getAccumulatedTurns();
 	}
 	
 	
