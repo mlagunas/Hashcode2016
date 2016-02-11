@@ -5,32 +5,56 @@ import java.util.PriorityQueue;
 
 import models.Drone;
 import models.Order;
+import models.Utils;
+import models.Warehouse;
 
 public class Simulator {
 
 	PriorityQueue<Drone> drones;
-	ArrayList<Order> orders;
+	ArrayList<Warehouse> warehouses;
 	
 	public Simulator() {
 		this.drones = new PriorityQueue<Drone>();
+		this.warehouses = new ArrayList<Warehouse>();
 	}
+	
+	
+	public void getMinWH() {
+		Drone dr = drones.poll();
+		
+		float minDistance = 0;
+		Warehouse goodWH = null;
+		
+		for (Warehouse wh: warehouses) {
+			if (Utils.euclideanDistance(dr, wh)<minDistance) {
+				minDistance = Utils.euclideanDistance(dr, wh);
+				goodWH = wh;
+			}
+		}
+		
+		dr.addTurn((int) Math.ceil(minDistance+1));
+		dr.setPosition(goodWH.getCoordinates());
+		updateQueueDrones();
+	}
+	
 	
 	public void addDrone(Drone dr) {
 		drones.add(dr);
 	}
 	
-	public void addTurnToDrone(int idDrone) {
-		for (Drone d:drones) {
-			if (d.getId() == idDrone) {
-				d.addTurn();
-				break;
-			}
+	private void updateQueueDrones() {
+		PriorityQueue<Drone> aux = new PriorityQueue<Drone>();
+		
+		while (drones.size()!= 0) {
+			aux.add(drones.poll());
 		}
+		
+		this.drones = aux;
 	}
-	
+ 	
 	
 	public static void main(String[] args) {
-		Simulator sm = new Simulator();
+		/*Simulator sm = new Simulator();
 		Drone dr1 = new Drone(0, null, null, 0);
 		dr1.addTurn();dr1.addTurn();dr1.addTurn();
 		sm.addDrone(dr1);
@@ -50,7 +74,9 @@ public class Simulator {
 		dr1 = pd.poll();
 		System.out.println(dr1.getId() + "  " + dr1.getAccumulatedTurns());
 		dr1 = pd.poll();
-		System.out.println(dr1.getId() + "  " + dr1.getAccumulatedTurns());
+		System.out.println(dr1.getId() + "  " + dr1.getAccumulatedTurns());*/
+		
+		System.out.println((int) Math.ceil(2));
 		
 	}
 	
