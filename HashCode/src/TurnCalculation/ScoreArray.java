@@ -67,9 +67,10 @@ public class ScoreArray {
 				}
 			}
 		}
+		int initialWeight = dron.getMaxWeight();
 		for (Product p : bestO.getProducts()) {
 			//LOAD
-			int weight = dron.getMaxWeight() - p.getWeight();
+			int weight = initialWeight - p.getWeight();
 			if(weight<0)
 				break;
 			dron.setMaxWeight(weight);
@@ -82,6 +83,7 @@ public class ScoreArray {
 			//DELIVER
 			dron.deliver(p, bestO);
 		}
+		dron.setMaxWeight(initialWeight);
 		return bestO;
 	}
 
