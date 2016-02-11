@@ -28,11 +28,11 @@ public class Warehouse {
 		this.products = products;
 	}
 	
-	public void getProduct(String pId, int num) {
+	public void getProduct(int type, int num) {
 		for (Product p:products) {
-			if (p.getId().equals(pId)) {
-				p.get(num);
-				if (p.getNum()==0) {
+			if (p.getType() == type) {
+				Product p1 = p.retrieve(num);
+				if (p.getWeight()==0) {
 					products.remove(p);
 				}
 				break;
@@ -40,18 +40,18 @@ public class Warehouse {
 		}
 	}
 	
-	public void unload(String pId, int num) {
+	public void setProduct(int type, int num) {
 		boolean end = false;
 		for (Product p:products) {
-			if (p.getId().equals(pId)) {
-				p.unload(num);
+			if (p.getType() == type) {
+				p.put(num);
 				end = true;
 				break;
 			}
 		}
 		
 		if (!end) {
-			products.add(new Productp(pId, num));
+			products.add(new Product(type, num));
 		}
 	}
 	

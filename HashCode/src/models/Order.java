@@ -28,33 +28,16 @@ public class Order {
 		this.products = products;
 	}
 	
-	/*public void getProduct(String pId, int num) {
+	public void getProduct(int type, int num) {
 		for (Product p:products) {
-			if (p.getId().equals(pId)) {
-				p.get(num);
-				if (p.getNum()==0) {
+			if (p.getType() == type) {
+				Product p1 = p.retrieve(num);
+				if (p.getWeight()==0) {
 					products.remove(p);
 				}
 				break;
 			}
 		}
-	}*/
-	
-	public void unload(String pId, int num) {
-		boolean end = false;
-		for (Product p:products) {
-			if (p.getId().equals(pId)) {
-				p.unload(num);
-				end = true;
-				break;
-			}
-		}
-		
-		if (!end) {
-			products.add(new Productp(pId, num));
-		}
 	}
-	
-	
 	
 }

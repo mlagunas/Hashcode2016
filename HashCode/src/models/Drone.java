@@ -16,14 +16,6 @@ public class Drone {
 		this.acumulatedWeight = 0;
 	}
 
-	public Coordinates getCoordinates() {
-		return coordinates;
-	}
-
-	public void setCoordinates(Coordinates coordinates) {
-		this.coordinates = coordinates;
-	}
-
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
@@ -32,35 +24,6 @@ public class Drone {
 		this.products = products;
 	}
 	
-	
-	public void load(String pId, int num, Warehouse wh) {
-		boolean end = false;
-		for (Product p:products) {
-			if (p.getId().equals(pId)) {
-				p.add(num);				// Aumenta la cantidad de items
-				end = true;
-				break;
-			}
-		}
-		
-		if (!end) {
-			products.add(new Productp(pId, num));
-		}
-		
-	}
-	
-	
-	/*public void getProduct(String pId, int num) {
-		for (Product p:products) {
-			if (p.getId().equals(pId)) {
-				p.get(num);
-				if (p.getNum()==0) {
-					products.remove(p);
-				}
-				break;
-			}
-		}
-	}*/
 	
 	public Coordinates getPosition() {
 		return position;
@@ -99,6 +62,24 @@ public class Drone {
 		if (!end) {
 			products.add(new Productp(pId, num));
 		}
+	}
+	
+
+	public void load(String pId, int num, Warehouse wh) {
+		boolean end = false;
+		for (Product p:products) {
+			if (p.getId().equals(pId)) {
+				p.add(num);				// Aumenta la cantidad de items
+				end = true;
+				break;
+			}
+		}
+		
+		if (!end) {
+			products.add(new Productp(pId, num));
+		}
+		
+		wh.unload(wh);
 	}
 	
 
