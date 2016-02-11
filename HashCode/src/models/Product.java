@@ -21,6 +21,10 @@ public class Product {
 	}
 	
 	public int getWeight(){
+		return weight;
+	}
+	
+	public int getAmmount(){
 		return ammount;
 	}
 	
