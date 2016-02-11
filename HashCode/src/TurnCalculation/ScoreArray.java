@@ -35,12 +35,15 @@ public class ScoreArray {
 		long turn = actualTurn;
 		if (hasProduts(wh, order)) {
 			for (Product p : order.getProducts()) {
-				dron.load(p.getType(), 1, wh);
+				//LOAD
+				turn ++;
+				//dron.load(p.getType(), 1, wh);
 			}
 			turn += Utils.euclideanDistance(dron, order);
 			for (Product p : order.getProducts()) {
 				turn++;
-				dron.deliver(p, order);
+				//DELIVER
+				//dron.deliver(p, order);
 			}
 		} else
 			return -1;
@@ -51,6 +54,7 @@ public class ScoreArray {
 			ArrayList<Order> orders, ArrayList<Warehouse> whs) {
 		long best = Long.MAX_VALUE;
 		Order bestO = null;
+		Warehouse wh = null;
 		for (Order o : orders) {
 			for (Warehouse w : whs) {
 				if (hasProduts(w, o)) {
@@ -58,9 +62,25 @@ public class ScoreArray {
 					if (valor != -1 && valor < best){
 						bestO = o;
 						best = valor;
+						wh = w;
 					}
 				}
 			}
+		}
+		for (Product p : bestO.getProducts()) {
+			//LOAD
+			int weight = dron.getMaxWeight() - p.getWeight();
+			if(weight<0)
+				break;
+			dron.setMaxWeight(weight);
+			dron.load(p.getType(), 1, wh);
+			ArrayList<Product> pa = bestO.getProducts();
+			pa.remove(p);
+			bestO.setProducts(pa);
+		}
+		for (Product p : bestO.getProducts()) {
+			//DELIVER
+			dron.deliver(p, bestO);
 		}
 		return bestO;
 	}
