@@ -35,17 +35,39 @@ public class ScoreArray {
 		return Math.round(turn);
 	}
 
-	public static HashMap<Value, Long> AllScores(ArrayList<Drone> drones,
+	public static HashMap<Value, Long> AllScores(Drone dron,
 			ArrayList<Order> orders, ArrayList<Warehouse> whs) {
 		HashMap<Value, Long> scores = new HashMap<Value, Long>();
-		for (Drone d : drones) {
+		
 			for (Order o : orders) {
 				for (Warehouse w : whs) {
-					scores.put(new Value(w,o,d), traceScore(d,o,w));
+					scores.put(new Value(w, o, d), traceScore(d, o, w));
+				}
+			}
+		
+		return scores;
+	}
+
+	public static HashMap<Order, Long> bestScores(ArrayList<Order> orders,
+			ArrayList<Warehouse> whs) {
+		HashMap<Order,Long> scores = new HashMap<Order, Long>();
+		HashMap
+		for(Order o: orders){
+			for(Warehouse w: whs){
+				boolean visit = true;
+				//TO-DO mirar si hay que ir a varios warehouses a coger productos
+				for(Product p: o.getProducts()){
+					if (!w.getProducts().contains(p)){
+						visit = false;
+					}
+				}
+				if(visit){
+					
 				}
 			}
 		}
-		return scores;
+		return null;
 
 	}
+
 }
