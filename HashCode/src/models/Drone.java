@@ -9,8 +9,10 @@ public class Drone {
 	private ArrayList<Product> products;
 	private int maxWeight;
 	private int acumulatedWeight;
-
-	public Drone(Coordinates position, ArrayList<Product> products, int maxWeight) {
+	private int id;
+	
+	public Drone(int id, Coordinates position, ArrayList<Product> products, int maxWeight) {
+		this.id = id;
 		this.position = position;
 		this.products = products;
 		this.maxWeight = maxWeight;
