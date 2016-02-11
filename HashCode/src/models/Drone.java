@@ -49,38 +49,41 @@ public class Drone {
 		this.acumulatedWeight = acumulatedWeight;
 	}
 
-	public void unload(String pId, int num) {
+	
+	public void load(int type, int num, Warehouse wh) {
 		boolean end = false;
 		for (Product p:products) {
-			if (p.getId().equals(pId)) {
-				p.unload(num);
-				end = true;
+			if (p.getType() == type) {
+				p.put(num);
 				break;
 			}
 		}
 		
 		if (!end) {
-			products.add(new Productp(pId, num));
+			products.add(new Product(type, num));
+		}
+		
+		wh.getProduct(type, num);
+		this.position = wh.getCoordinates();
+	}
+	
+	public void deliver(int type, int num, Order order) {
+		boolean end = false;
+		for (Product p:products) {
+			if (p.getTyperetrieve(num);
+				break;
+			}
 		}
 	}
 	
-
-	public void load(String pId, int num, Warehouse wh) {
-		boolean end = false;
-		for (Product p:products) {
-			if (p.getId().equals(pId)) {
-				p.add(num);				// Aumenta la cantidad de items
-				end = true;
-				break;
-			}
-		}
+	public void unload() {
 		
-		if (!end) {
-			products.add(new Productp(pId, num));
-		}
-		
-		wh.unload(wh);
 	}
+	
+	public void wait() {
+		
+	}
+	
 	
 
 }
