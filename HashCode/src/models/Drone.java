@@ -1,5 +1,6 @@
 package models;
 
+import java.lang.Character.Subset;
 import java.util.ArrayList;
 
 public class Drone {
@@ -50,47 +51,69 @@ public class Drone {
 	}
 
 	
-	public void load(int type, int num, Warehouse wh) {
-		boolean end = false;
-		for (Product p:products) {
-			if (p.getType() == type) {
-				p.put(num);
-				break;
+	public boolean load(int type, int num, Warehouse wh) {
+		Product p1 = wh.getProduct(type, num);
+
+		if (p1 != null) {
+			boolean end = false;
+			for (Product p:products) {
+				if (p.getType() == type) {
+					p.put(p1.getAmmount());
+					addWieght(p1.getWeight());
+					break;
+				}
 			}
+			
+			if (!end) {
+				products.add(p1);
+				addWieght(p1.getWeight());
+			}
+			
+//			this.position = wh.getCoordinates();
+			return true;
 		}
-		
-		if (!end) {
-			products.add(new Product(type, num));
+		else {
+			return false;
 		}
-		
-		wh.getProduct(type, num);
-		this.position = wh.getCoordinates();
 	}
 	
-	public void deliver(int type, int num, Order order) {
+	public void deliver(Product p1, Order order) {
 		for (Product p:products) {
-			p.retrieve(num);
-			if (p.getWeight()==0) {
+			p.retrieve(p1.getAmmount());
+			if (p.getAmmount()==0) {
 				products.remove(p);
 			}
+			subWeight(p1.getAmmount()*p1.getWeight());
 		}
-		order.getProduct(type, num);
-		this.position = order.getCoordinates();
+		order.getProduct(p1);
+//		this.position = order.getCoordinates();
 	}
 	
 	public void unload(int type, int num, Warehouse wh) {
+		Product p1 = null;
 		for (Product p:products) {
-			p.retrieve(num);
-			if (p.getWeight()==0) {
+			p1 = p.retrieve(num);
+			if (p.getAmmount()==0) {
 				products.remove(p);
 			}
+			subWeight(num*p.getWeight());
 		}
-		wh.setProduct(type, num);
-		this.position = wh.getCoordinates();
+		
+		if (p1 != null){
+			wh.setProduct(p1);
+		}
+		
+//		this.position = wh.getCoordinates();
 	}
 	
-	public void waitDrone() {
-		
+	
+	private void addWieght(int weight) {
+		this.acumulatedWeight += weight;
+	}
+	
+	private void subWeight(int weight) {
+		this.acumulatedWeight -= weight;
+		if (acumulatedWeight < 0) { acumulatedWeight = 0; }
 	}
 	
 	

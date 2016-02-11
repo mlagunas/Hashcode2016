@@ -28,11 +28,11 @@ public class Order {
 		this.products = products;
 	}
 	
-	public void getProduct(int type, int num) {
+	public void getProduct(Product p1) {
 		for (Product p:products) {
-			if (p.getType() == type) {
-				Product p1 = p.retrieve(num);
-				if (p.getWeight()==0) {
+			if (p.getType() == p1.getType()) {
+				p.retrieve(p1.getAmmount());
+				if (p.getAmmount()==0) {
 					products.remove(p);
 				}
 				break;

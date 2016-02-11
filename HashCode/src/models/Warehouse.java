@@ -28,30 +28,32 @@ public class Warehouse {
 		this.products = products;
 	}
 	
-	public void getProduct(int type, int num) {
+	public Product getProduct(int type, int num) {
+		Product p1 = null;
 		for (Product p:products) {
 			if (p.getType() == type) {
-				Product p1 = p.retrieve(num);
-				if (p.getWeight()==0) {
+				p1 = p.retrieve(num);
+				if (p.getWeight()== 0) {
 					products.remove(p);
 				}
 				break;
 			}
 		}
+		return p1;
 	}
 	
-	public void setProduct(int type, int num) {
+	public void setProduct(Product product) {
 		boolean end = false;
 		for (Product p:products) {
-			if (p.getType() == type) {
-				p.put(num);
+			if (p.getType() == product.getType()) {
+				p.put(product.getAmmount());
 				end = true;
 				break;
 			}
 		}
 		
 		if (!end) {
-			products.add(new Product(type, num));
+			products.add(product);
 		}
 	}
 	
