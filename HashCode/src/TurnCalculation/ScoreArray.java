@@ -47,15 +47,23 @@ public class ScoreArray {
 		return Math.round(turn);
 	}
 
-	public static HashMap<Value, Long> getTurns(Drone dron,
+	public static HashMap<Order, Long> getTurns(Drone dron,
 			ArrayList<Order> orders, ArrayList<Warehouse> whs) {
 
-		HashMap<Value, Long> scores = new HashMap<Value, Long>();
+		HashMap<Order, Long> scores = new HashMap<Order, Long>();
+		long best = Long.MAX_VALUE;
+		Order bestO = null;
 		for (Order o : orders) {
 			for (Warehouse w : whs) {
-				if (hasProduts(w, o))
-					scores.put(new Value(w, o, dron), traceTurn(dron, o, w));
+				if (hasProduts(w, o)) {
+					long valor = traceTurn(dron, o, w);
+					if (valor < best){
+						bestO = o;
+						best = valor;
+					}
+				}
 			}
+			scores.put(o, best);
 		}
 		return scores;
 	}
