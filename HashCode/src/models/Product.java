@@ -31,4 +31,8 @@ public class Product {
 		return split;
 	}
 	
+	public void put(int weight){
+		this.weight+=weight;
+	}
+	
 }
