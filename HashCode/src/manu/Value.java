@@ -1,4 +1,3 @@
-
 package manu;
 
 import models.Drone;
@@ -7,27 +6,38 @@ import models.Warehouse;
 
 public class Value {
 
-	private static Warehouse wh;
-	private static Order ord;
-	private static Drone dron;
-	public static Warehouse getWh() {
+	private Warehouse wh;
+	private Order ord;
+	private Drone dron;
+
+	public Value(Warehouse wh, Order ord, Drone dron) {
+		this.wh = wh;
+		this.ord = ord;
+		this.dron = dron;
+	}
+
+	public Warehouse getWh() {
 		return wh;
 	}
-	public static void setWh(Warehouse wh) {
-		Value.wh = wh;
+
+	public void setWh(Warehouse wh) {
+		this.wh = wh;
 	}
-	public static Order getOrd() {
+
+	public Order getOrd() {
 		return ord;
 	}
-	public static void setOrd(Order ord) {
-		Value.ord = ord;
+
+	public void setOrd(Order ord) {
+		this.ord = ord;
 	}
-	public static Drone getDron() {
+
+	public Drone getDron() {
 		return dron;
 	}
-	public static void setDron(Drone dron) {
-		Value.dron = dron;
+
+	public void setDron(Drone dron) {
+		this.dron = dron;
 	}
-	
-	
+
 }
