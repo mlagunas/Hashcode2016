@@ -68,19 +68,28 @@ public class Drone {
 	}
 	
 	public void deliver(int type, int num, Order order) {
-		boolean end = false;
 		for (Product p:products) {
-			if (p.getTyperetrieve(num);
-				break;
+			p.retrieve(num);
+			if (p.getWeight()==0) {
+				products.remove(p);
 			}
 		}
+		order.getProduct(type, num);
+		this.position = order.getCoordinates();
 	}
 	
-	public void unload() {
-		
+	public void unload(int type, int num, Warehouse wh) {
+		for (Product p:products) {
+			p.retrieve(num);
+			if (p.getWeight()==0) {
+				products.remove(p);
+			}
+		}
+		wh.setProduct(type, num);
+		this.position = wh.getCoordinates();
 	}
 	
-	public void wait() {
+	public void waitDrone() {
 		
 	}
 	
